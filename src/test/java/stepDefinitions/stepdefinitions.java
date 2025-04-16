@@ -10,7 +10,7 @@ import utilities.BaseClass;
 import java.util.List;
 import java.util.Map;
 
-public class ConduitSteps {
+public class stepdefinitions {
 
     WebDriver driver = BaseClass.driver;
 

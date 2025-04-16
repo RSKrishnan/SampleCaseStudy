@@ -1,13 +1,13 @@
 Feature: Conduit App Test
 Scenario: Login into App
     Given User is on Login page
-    When User provide "rekha.s.2906@gmail.com" and "Test@123"
+    When User provide "ramakrishnanr013@gmail.com" and "Selenium@2211"
     Then User should be on Home Page
   Scenario: Create new Article
     Given User should be on New Article Page
     When User enters Article details
       | title        | Desc        | Content      | tag     |
-      | Sample Title 1 | Description | Article body | testTag |
+      | Sample Title 99 | Description | Article body | testTag |
     Then Article must be created
 
   Scenario: Update an Article
