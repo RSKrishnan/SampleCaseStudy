@@ -14,7 +14,6 @@ public class ConduitSteps {
 
     WebDriver driver = BaseClass.driver;
 
-    // No need to pass the driver now, since each page pulls from BaseClass
     LoginPage loginPage = new LoginPage();
     NewArticlePage newArticlePage = new NewArticlePage();
     ArticlePage articlePage = new ArticlePage();
@@ -58,24 +57,26 @@ public class ConduitSteps {
         Assert.assertTrue(articlePage.isArticleDisplayed("Sample Title"));
     }
 
-    @Given("User should be on Global Feed page")
-    public void user_should_be_on_global_feed_page() {
+    /** @Given("User is on the Global Feed page")
+    public void user_is_on_the_global_feed_page() {
+    	articlePage.clickHomeLink();
         articlePage.clickGlobalFeed();
+        Assert.assertTrue("Global Feed is not displayed", articlePage.isGlobalFeedDisplayed());
     }
 
-    @When("User select an article {string}")
-    public void user_select_an_article(String title) {
-        articlePage.selectArticle(title);
+    @When("User selects the article titled {string}")
+    public void user_selects_the_article_titled(String title) {
+        articlePage.selectArticle(title);      // Select the article by title
     }
 
-    @Then("Article detail page must be displayed")
-    public void article_detail_page_must_be_displayed() {
-        Assert.assertTrue(articlePage.isArticleDisplayed("Sample Title"));
-    }
+    @Then("The article detail page should be displayed for {string}")
+    public void the_article_detail_page_should_be_displayed_for(String title) {
+        Assert.assertTrue("Article detail page is not displayed for: " + title, articlePage.isArticleDisplayed(title)); } **/
+   
 
     @When("User updates the article titled {string} with new content {string}")
     public void user_updates_the_article_titled_with_new_content(String title, String updatedContent) {
-        articlePage.goToArticleFromHome(title);
+        //articlePage.goToArticleFromHome(title);
         editPage.editArticle();
         newArticlePage.updateBody(updatedContent);
         editPage.clickUpdateArticleButton();
@@ -94,5 +95,5 @@ public class ConduitSteps {
     @Then("Article must be deleted")
     public void article_must_be_deleted() {
         Assert.assertFalse(driver.getPageSource().contains("Sample Title"));
-    }
+    } 
 }

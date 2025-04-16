@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="34.991" tests="4" skipped="0" failures="3" errors="0">
+<testcase classname="Conduit App Test" name="Login into App" time="9.972">
+<system-out><![CDATA[
+Given User is on Login page.................................................passed
+When User provide "rekha.s.2906@gmail.com" and "Test@123"...................passed
+Then User should be on Home Page............................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Conduit App Test" name="Create new Article" time="13.311">
+<failure type="org.openqa.selenium.TimeoutException" message="Expected condition failed: waiting for visibility of element located by By.xpath: //h1[text()='Sample Title'] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.20.0', revision: '866c76ca80'
+System info: os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '15.3.2', java.version: '21.0.6'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 135.0.7049.85, chrome: {chromedriverVersion: 135.0.7049.84 (6c019e560019..., userDataDir: /var/folders/dg/_z813vq940g...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:58025}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:58025/devtoo..., se:cdpVersion: 135.0.7049.85, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 0ab8b27ba49a50d08c1a14dfe07d3e32">
+<![CDATA[org.openqa.selenium.TimeoutException: Expected condition failed: waiting for visibility of element located by By.xpath: //h1[text()='Sample Title'] (tried for 10 second(s) with 500 milliseconds interval)
+Build info: version: '4.20.0', revision: '866c76ca80'
+System info: os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '15.3.2', java.version: '21.0.6'
+Driver info: org.openqa.selenium.chrome.ChromeDriver
+Capabilities {acceptInsecureCerts: false, browserName: chrome, browserVersion: 135.0.7049.85, chrome: {chromedriverVersion: 135.0.7049.84 (6c019e560019..., userDataDir: /var/folders/dg/_z813vq940g...}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:58025}, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: mac, proxy: Proxy(), se:cdp: ws://localhost:58025/devtoo..., se:cdpVersion: 135.0.7049.85, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: dismiss and notify, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 0ab8b27ba49a50d08c1a14dfe07d3e32
+	at org.openqa.selenium.support.ui.WebDriverWait.timeoutException(WebDriverWait.java:84)
+	at org.openqa.selenium.support.ui.FluentWait.until(FluentWait.java:228)
+	at pages.ArticlePage.isArticleDisplayed(ArticlePage.java:38)
+	at stepDefinitions.ConduitSteps.article_must_be_created(ConduitSteps.java:57)
+	at ✽.Article must be created(file:///Users/rekha/eclipse-workspace/casestudyfinal/src/test/resources/features/conduit.feature:11)
+]]>
+</failure>
+<system-out><![CDATA[
+Given User should be on New Article Page....................................passed
+When User enters Article details............................................passed
+Then Article must be created................................................failed
+]]></system-out>
+</testcase>
+<testcase classname="Conduit App Test" name="Update an Article" time="0.009">
+<failure/>
+<system-out><![CDATA[
+Given Article detail page must be displayed.................................undefined
+When User update article detail.............................................skipped
+Then Article detail must be updated.........................................skipped
+]]></system-out>
+</testcase>
+<testcase classname="Conduit App Test" name="Delete an Article" time="0.005">
+<failure/>
+<system-out><![CDATA[
+Given Article detail page must be displayed.................................undefined
+When User delete article....................................................skipped
+Then Article must be deleted................................................skipped
+]]></system-out>
+</testcase>
+</testsuite>

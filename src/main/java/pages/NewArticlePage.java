@@ -1,6 +1,7 @@
 package pages;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -47,8 +48,15 @@ public class NewArticlePage {
     }
 
     public void clickPublishArticleButton() {
-        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(publishArticleButton));
-        button.click();
+        int attempts = 0;
+        while (attempts < 2) {
+            try {
+                driver.findElement(By.xpath("//button[text()='Publish Article']")).click();
+                break;
+            } catch (StaleElementReferenceException e) {
+                attempts++;
+            }
+        }
     }
 
     public void createArticle(String title, String desc, String content, String tag) {
