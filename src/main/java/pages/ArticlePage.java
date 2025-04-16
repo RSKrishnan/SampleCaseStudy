@@ -2,32 +2,47 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utilities.BaseClass;
+
+import java.time.Duration;
 
 public class ArticlePage {
 
-    private WebDriver driver;
-    
-    By homeLink = By.xpath("//a[@href='#/']");
-    By globalFeedTab = By.xpath("//button[text()='Global Feed']");
-    By articleTitle = By.cssSelector("h1");
+    private WebDriver driver = BaseClass.driver;
+    private WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-    public ArticlePage(WebDriver driver) {
-        this.driver = driver;
-    }
+    private By homeLink = By.linkText("Home");
+    private By globalFeedTab = By.xpath("//button[text()='Global Feed']");
+    private By articleTitle = By.cssSelector("h1");
 
     public boolean isAtHomePage() {
-        return driver.findElement(homeLink).isDisplayed();
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(homeLink)).isDisplayed();
     }
 
     public void clickGlobalFeed() {
-        driver.findElement(globalFeedTab).click();
+        wait.until(ExpectedConditions.elementToBeClickable(globalFeedTab)).click();
     }
 
     public void selectArticle(String title) {
-        driver.findElement(By.xpath("//h1[text()='" + title + "']")).click();
+        By specificArticleTitle = By.xpath("//h1[text()='" + title + "']");
+        wait.until(ExpectedConditions.elementToBeClickable(specificArticleTitle)).click();
     }
 
     public boolean isArticleDisplayed(String title) {
-        return driver.findElement(By.xpath("//h1[text()='" + title + "']")).isDisplayed();
+        By specificArticleTitle = By.xpath("//h1[text()='" + title + "']");
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(specificArticleTitle)).isDisplayed();
+    }
+
+    public String getArticleTitle() {
+        WebElement titleElement = wait.until(ExpectedConditions.visibilityOfElementLocated(articleTitle));
+        return titleElement.getText();
+    }
+    public void goToArticleFromHome(String title) {
+        wait.until(ExpectedConditions.elementToBeClickable(homeLink)).click();
+        clickGlobalFeed();
+        selectArticle(title);
     }
 }

@@ -2,59 +2,68 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utilities.BaseClass;
+
+import java.time.Duration;
 
 public class NewArticlePage {
 
-    private WebDriver driver;
-    
-    By newArticleButton = By.xpath("//a[@href='#/editor']");
-    By titleInput = By.xpath("//input[@placeholder='Article Title']");
-    By articleDesc = By.xpath("//input[@name='description']");
-    By articleContent = By.xpath("//textarea[@class='form-control']");
-    By articleTag = By.xpath("//input[@name='tags']");
-    By publishArticleButton = By.xpath("//button[text()='Publish Article']");
+    private WebDriver driver = BaseClass.driver;
+    private WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+    private By newArticleButton = By.linkText("New Article");
+    private By titleInput = By.xpath("//input[@placeholder='Article Title']");
+    private By articleDesc = By.xpath("//input[@name='description']");
+    private By articleContent = By.xpath("//textarea[@class='form-control']");
+    private By articleTag = By.xpath("//input[@name='tags']");
+    private By publishArticleButton = By.xpath("//button[text()='Publish Article']");
 
-    public NewArticlePage(WebDriver driver) {
-        this.driver = driver;
+    public void clickNewArticleButton() {
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(newArticleButton));
+        button.click();
     }
 
-    public void clicknewArticleButton() {
-        driver.findElement(newArticleButton).click();
+    public void enterTitle(String title) {
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(titleInput));
+        input.sendKeys(title);
     }
 
-    public void entertitle(String title) {
-        driver.findElement(titleInput).sendKeys(title);
+    public void enterDescription(String desc) {
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(articleDesc));
+        input.sendKeys(desc);
     }
 
-    public void enterDesc(String Desc) {
-        driver.findElement(articleDesc).sendKeys(Desc);
+    public void enterContent(String content) {
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(articleContent));
+        input.sendKeys(content);
     }
 
-    public void enterContent(String Content) {
-        driver.findElement(articleContent).click();
-    }
     public void enterTag(String tag) {
-        driver.findElement(articleTag).click();
-    }
-    public void clickpublishArticleButton() {
-        driver.findElement(publishArticleButton).click();
+        WebElement input = wait.until(ExpectedConditions.visibilityOfElementLocated(articleTag));
+        input.sendKeys(tag);
     }
 
+    public void clickPublishArticleButton() {
+        WebElement button = wait.until(ExpectedConditions.elementToBeClickable(publishArticleButton));
+        button.click();
+    }
 
-    public void createArticle(String title, String Desc,String Content,String tag) {
-    	clicknewArticleButton();
-    	entertitle(title);
-    	enterDesc(Desc);
-    	enterContent(Content);
-    	enterTag(tag);
-    	clickpublishArticleButton();
-    	
-    }    
+    public void createArticle(String title, String desc, String content, String tag) {
+        clickNewArticleButton();
+        enterTitle(title);
+        enterDescription(desc);
+        enterContent(content);
+        enterTag(tag);
+        clickPublishArticleButton();
+    }
 
     public void updateBody(String updatedBody) {
-        driver.findElement(articleContent).clear();
-        driver.findElement(articleContent).sendKeys(updatedBody);
-        driver.findElement(publishArticleButton).click();
+        WebElement contentArea = wait.until(ExpectedConditions.visibilityOfElementLocated(articleContent));
+        contentArea.clear();
+        contentArea.sendKeys(updatedBody);
+        clickPublishArticleButton();
     }
 }

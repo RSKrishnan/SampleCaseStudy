@@ -3,24 +3,32 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import utilities.BaseClass;
+
+import java.time.Duration;
 
 public class EditArticlePage {
-	 WebDriver driver;
-	 
-	 By editBtn = By.xpath("//a[contains(text(),'Edit Article')]");
-	 By deleteBtn = By.cssSelector(".btn.btn-primary");
+    private WebDriver driver = BaseClass.driver;
+    private WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-	    public EditArticlePage(WebDriver driver) {
-	        this.driver = driver;
-	    }
-	    public void editArticle() {
-	        driver.findElement(editBtn).click();
-	    }
+    private By editBtn = By.xpath("//a[contains(text(),'Edit Article')]");
+    private By deleteBtn = By.cssSelector(".btn.btn-primary");
+    private By updateArticleBtn = By.xpath("//button[text()='Update Article']");
 
-		public void deleteArticle() {
-	        driver.findElement(deleteBtn).click();
-			
-		}
-	}
+    public void editArticle() {
+        WebElement editButton = wait.until(ExpectedConditions.elementToBeClickable(editBtn));
+        editButton.click();
+    }
+
+    public void deleteArticle() {
+        WebElement deleteButton = wait.until(ExpectedConditions.elementToBeClickable(deleteBtn));
+        deleteButton.click();
+    }
+
+    public void clickUpdateArticleButton() {
+        WebElement updateButton = wait.until(ExpectedConditions.elementToBeClickable(updateArticleBtn));
+        updateButton.click();
+    }
+}

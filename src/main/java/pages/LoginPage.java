@@ -2,18 +2,22 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import utilities.BaseClass;
 
 public class LoginPage {
-    WebDriver driver;
+    WebDriver driver = BaseClass.driver;
 
     By signInLink = By.xpath("//a[@href='#/login']");
     By emailInput = By.xpath("//input[@placeholder='Email']");
     By passwordInput = By.xpath("//input[@placeholder='Password']");
     By signInButton = By.xpath("//button[text()='Login']");
-    
 
-    public LoginPage(WebDriver driver) { 	
-        this.driver = driver;
+    // No need to pass WebDriver from constructor; already shared via BaseClass
+    public LoginPage() {
+        // Optional: Validate driver is not null
+        if (driver == null) {
+            throw new IllegalStateException("WebDriver not initialized in BaseClass.");
+        }
     }
 
     public void clickSignInLink() {

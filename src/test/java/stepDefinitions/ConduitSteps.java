@@ -5,17 +5,20 @@ import io.cucumber.java.en.*;
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import pages.*;
+import utilities.BaseClass;
 
 import java.util.List;
 import java.util.Map;
 
 public class ConduitSteps {
 
-    WebDriver driver = utils.TestHooks.driver;
-    LoginPage loginPage = new LoginPage(driver);
-    NewArticlePage newArticlePage = new NewArticlePage(driver);
-    ArticlePage articlePage = new ArticlePage(driver);
-    EditArticlePage editPage = new EditArticlePage(driver);
+    WebDriver driver = BaseClass.driver;
+
+    // No need to pass the driver now, since each page pulls from BaseClass
+    LoginPage loginPage = new LoginPage();
+    NewArticlePage newArticlePage = new NewArticlePage();
+    ArticlePage articlePage = new ArticlePage();
+    EditArticlePage editPage = new EditArticlePage();
 
     @Given("User is on Login page")
     public void user_is_on_login_page() {
@@ -34,15 +37,20 @@ public class ConduitSteps {
 
     @Given("User should be on New Article Page")
     public void user_should_be_on_new_article_page() {
-        newArticlePage.clicknewArticleButton();
+        newArticlePage.clickNewArticleButton();
     }
 
     @When("User enters Article details")
     public void user_enters_article_details(DataTable dataTable) {
         List<Map<String, String>> data = dataTable.asMaps(String.class, String.class);
         Map<String, String> article = data.get(0);
-        newArticlePage.createArticle(article.get("title"), article.get("Desc"), article.get("Content"), article.get("tag"));
-        newArticlePage.clickpublishArticleButton();
+        newArticlePage.createArticle(
+                article.get("title"),
+                article.get("Desc"),
+                article.get("Content"),
+                article.get("tag")
+        );
+        newArticlePage.clickPublishArticleButton();
     }
 
     @Then("Article must be created")
@@ -57,7 +65,7 @@ public class ConduitSteps {
 
     @When("User select an article {string}")
     public void user_select_an_article(String title) {
-    	articlePage.selectArticle(title);
+        articlePage.selectArticle(title);
     }
 
     @Then("Article detail page must be displayed")
@@ -65,10 +73,12 @@ public class ConduitSteps {
         Assert.assertTrue(articlePage.isArticleDisplayed("Sample Title"));
     }
 
-    @When("User update article detail")
-    public void user_update_article_detail() {
+    @When("User updates the article titled {string} with new content {string}")
+    public void user_updates_the_article_titled_with_new_content(String title, String updatedContent) {
+        articlePage.goToArticleFromHome(title);
         editPage.editArticle();
-        newArticlePage.updateBody("Updated Content");
+        newArticlePage.updateBody(updatedContent);
+        editPage.clickUpdateArticleButton();
     }
 
     @Then("Article detail must be updated")
@@ -79,7 +89,6 @@ public class ConduitSteps {
     @When("User delete article")
     public void user_delete_article() {
         editPage.deleteArticle();
-    
     }
 
     @Then("Article must be deleted")
